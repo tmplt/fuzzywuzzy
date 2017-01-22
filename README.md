@@ -1,0 +1,1 @@
+This is a port of python-Levenshtein to C++, with the Python module as implementation reference. The reference lacks implementaion comments and instead focuses on how the Python interface works, which is why the this codebase is hard to read, understand and wrap your head around. While I write this, I'll see about to C++-ify it, but no promises.
