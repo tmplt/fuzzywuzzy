@@ -4,6 +4,10 @@
 
 namespace /* I'm in your mind... */ fuzz {
 
+/*                          */
+/* Basic scoring functions. */
+/*                          */
+
 /* Calculates a Levenshtein simple ratio between the string. */
 int ratio(string_view &s1, string_view &s2);
 
@@ -12,6 +16,10 @@ int ratio(string_view &s1, string_view &s2);
  * as a number between 0 and 100.
  */
 int partial_ratio(string_view &s1, string_view &s2);
+
+/*                             */
+/* Advanced scoring functions. */
+/*                             */
 
 /*
  * Returns a measure of the strings' similarity between 0 and 100

@@ -7,14 +7,16 @@ using std::vector;
 
 namespace algorithm {
 
-size_t algorithm::lev_dist(const string_view &s1, const string_view &s2)
+size_t algorithm::levenshtein_distance(const string_view &s1, const string_view &s2)
 {
-    size_t lena = s1.size();
-    size_t lenb = s2.size();
+    size_t len1 = s1.size();
+    size_t len2 = s2.size();
+
+    size_t i, j;
 
     /* Base case: a string is empty. */
-    if (lena == 0) return lenb;
-    if (lenb == 0) return lena;
+    if (len1 == 0) return len2;
+    if (len2 == 0) return len1;
 
     /*
      * Initialize rows[i].first (the previous row of distances).
@@ -23,15 +25,15 @@ size_t algorithm::lev_dist(const string_view &s1, const string_view &s2)
      * characters to delete from the non-empty string.
      */
     vector<std::pair<size_t, size_t>> rows(lenb + 1);
-    for (size_t i = 0; i < rows.size(); i++)
+    for (i = 0; i < rows.size(); i++)
         rows[i].first = i;
 
-    for (size_t i = 0; i < lena; i++) {
+    for (i = 0; i < lena; i++) {
         /* Edit distance is delete (i+1) chars from non-empty to empty. */
         rows[0].second = i + 1;
 
         /* Fill in the rest of the row. */
-        for (size_t j = 0; j < lenb; j++) {
+        for (j = 0; j < lenb; j++) {
             auto cost = (s1[i] == s2[j]) ? 0 : 1;
 
             rows[j + 1].second = utils::min(rows[j].second + 1,

@@ -21,7 +21,7 @@ int partial_ratio(string_view &s1, string_view &s2)
         longer  = s2;
     } else {
         shorter = s2;
-        logner  = s1;
+        longer  = s1;
     }
 
     auto m = string_matcher(shorter, longer);
@@ -38,7 +38,7 @@ int partial_ratio(string_view &s1, string_view &s2)
      */
     vector<int> scores;
     for (auto &block : blocks) {
-        auto long_start  = (block[1] - block[0]) > 0 ? block[1] - block[0] : 0;
+        auto long_start  = (block.dpos - block.spos) > 0 ? block.dpos - block.spos : 0;
         auto long_end    = long_start + shorter.length();
         auto long_substr = longer.substr(long_start, long_end);
 
@@ -55,7 +55,7 @@ int partial_ratio(string_view &s1, string_view &s2)
 
 int token_sort_ratio(string_view &s1, string_view &s2)
 {
-    
+    auto sorted1 = utils::sort(s1);
 }
 
 }  // ns fuzz
