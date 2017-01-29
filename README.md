@@ -8,8 +8,8 @@ Simple and advanced scoring functions:
 
 - [X] `ratio()`
     - [X] `levenshtein_distance()`
-- [ ] `partial_ratio()`
-    - [ ] `string_matcher::get_matching_blocks()`
+- [X] `partial_ratio()`
+    - [X] `string_matcher::get_matching_blocks()`
 - [ ] `token_sort_ratio()`
 - [ ] `partial_token_sort_ratio()`
 - [ ] `token_set_ratio()`

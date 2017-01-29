@@ -6,7 +6,7 @@
 
 namespace fuzz {
 
-int ratio(string_view &s1, string_view &s2)
+int ratio(const string_view &s1, const string_view &s2)
 {
     auto m = string_matcher(s1, s2);
     return static_cast<int>(std::round(100 * m.ratio()));
@@ -30,7 +30,7 @@ int partial_ratio(string_view &s1, string_view &s2)
     /*
      * Each block represents a string of matching characters
      * in a string of the form (idx_1, idx_2, len). The best
-     * partial match will block align align with at least one
+     * partial match will block align with at least one
      * of those blocks.
      *  e.g. shorter = "abcd", longer "XXXbcdeEEE"
      *  block = (1, 3, 3)

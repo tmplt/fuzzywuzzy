@@ -9,13 +9,13 @@ namespace /* I'm in your mind... */ fuzz {
 /*                          */
 
 /* Calculates a Levenshtein simple ratio between the string. */
-int ratio(string_view &s1, string_view &s2);
+int ratio(const string_view &s1, const string_view &s2);
 
 /*
  * Return the ratio of the most similar substring
  * as a number between 0 and 100.
  */
-int partial_ratio(string_view &s1, string_view &s2);
+int partial_ratio(const string_view &s1, const string_view &s2);
 
 /*                             */
 /* Advanced scoring functions. */
