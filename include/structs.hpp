@@ -1,7 +1,7 @@
 #pragma once
 
 enum edit_type {
-    remove,  // since "delete" is a keyword.
+    erase,  // since "delete" is a keyword.
     equal,
     insert,
     replace,

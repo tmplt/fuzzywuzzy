@@ -1,7 +1,7 @@
 #pragma once
 
-#include "structs.hpp"
 #include "common.hpp"
+#include "structs.hpp"
 
 namespace fuzz {
 
@@ -19,7 +19,7 @@ public:
     vector<matching_block> get_matching_blocks();
 
     double ratio();
-    int real_quick_ratio();
+    double real_quick_ratio();
     int distance();
 
 protected:

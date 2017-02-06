@@ -5,6 +5,8 @@
 
 namespace utils {
 
+// use remove_suffix
+
 vector<string> split_string(const string_view &str, const char c)
 {
     vector<string> result;
@@ -22,7 +24,7 @@ vector<string> split_string(const string_view &str, const char c)
     return result;
 }
 
-string trim(const string_view &str, const string_view &whitespace = " \t")
+string_view trim(const string_view &str, const string_view &whitespace = " \t")
 {
     const auto begin = str.find_first_not_of(whitespace);
     if (begin == string_view::npos)
@@ -34,7 +36,7 @@ string trim(const string_view &str, const string_view &whitespace = " \t")
     return str.substr(begin, length);
 }
 
-string& trim(string &str, const string_view &whitespace = " \t")
+string trim(string &str, const string &whitespace = " \t")
 {
     /* Find first char where prefixed whitespace is trimmed. */
     auto begin = str.find_first_not_of(whitespace);
@@ -75,7 +77,7 @@ string& clean_string(string &s)
      * Lowercase the whole string.
      * NOTE: This might break with non-ASCII.
      */
-    std::transform(s.begin(), s.end(), s.begin(), std::tolower);
+    //std::transform(s.begin(), s.end(), std::tolower);
 
     s = trim(s);
     return s;

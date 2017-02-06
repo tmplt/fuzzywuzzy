@@ -1,5 +1,6 @@
 #include "string_matcher.hpp"
 #include "algorithm.hpp"
+#include "diffutils.hpp"
 
 #include <algorithm>
 #include <cassert>
@@ -26,7 +27,7 @@ void string_matcher::set_string2(const string_view s2)
     reset_cache();
 }
 
-vector<matching_block> string_matcher::get_matching_blocks(string_view &s1, string_view &s2)
+vector<matching_block> string_matcher::get_matching_blocks()
 {
     if (matching_blocks_.empty())
         matching_blocks_ = diffutils::matching_blocks(get_opcodes(), s1_.length(), s2_.length());
@@ -36,7 +37,7 @@ vector<matching_block> string_matcher::get_matching_blocks(string_view &s1, stri
 double string_matcher::ratio()
 {
     if (!ratio_)
-        ratio_ = diffutils::ratio(a_, b_);
+        ratio_ = diffutils::ratio(s1_, s2_);
     return ratio_;
 }
 
@@ -58,14 +59,13 @@ void string_matcher::reset_cache()
     ratio_ = distance_ = not_set;
 
     matching_blocks_.clear();
-    edit_ops_.clear();
     op_codes_.clear();
 }
 
-vector<op_code> string_matcher::get_opcodes();
+vector<op_code> string_matcher::get_opcodes()
 {
-    if (op_codes_.empty())
-        op_codes_ = diffutils::opcodes(s1_, s2_);
+    /* if (op_codes_.empty()) */
+    /*     op_codes_ = diffutils::opcodes(s1_, s2_); */
     return op_codes_;
 }
 

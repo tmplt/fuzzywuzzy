@@ -1,5 +1,6 @@
 #include "fuzzywuzzy.hpp"
 #include "string_matcher.hpp"
+#include "utils.hpp"
 
 #include <cmath>
 #include <algorithm>
@@ -37,7 +38,7 @@ int partial_ratio(string_view &s1, string_view &s2)
      *  best score == ratio("abcd", "Xbcd")
      */
     vector<int> scores;
-    for (auto &block : blocks) {
+    for (const auto &block : blocks) {
         auto long_start  = (block.dpos - block.spos) > 0 ? block.dpos - block.spos : 0;
         auto long_end    = long_start + shorter.length();
         auto long_substr = longer.substr(long_start, long_end);
@@ -50,12 +51,14 @@ int partial_ratio(string_view &s1, string_view &s2)
             scores.push_back(r);
     }
 
-    return std::round(100 * std::max_element(scores.begin(), scored.end()));
+    return std::round(100 * *std::max_element(scores.cbegin(), scores.cend()));
 }
 
 int token_sort_ratio(string_view &s1, string_view &s2)
 {
-    auto sorted1 = utils::sort(s1);
+    //auto sorted1 = utils::sort(s1);
+
+    return 666;
 }
 
 }  // ns fuzz
