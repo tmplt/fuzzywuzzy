@@ -25,4 +25,10 @@ auto min(const T &first, const Args&... args)
     return *min;
 }
 
+/*
+ * percent-rounded: return an int in the range [0,100].
+ * TODO: make up a new name.
+ */
+int percrnd(double val);
+
 }

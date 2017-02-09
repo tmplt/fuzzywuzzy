@@ -2,6 +2,7 @@
 #include "common.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace utils {
 
@@ -81,6 +82,11 @@ string& clean_string(string &s)
 
     s = trim(s);
     return s;
+}
+
+int percrnd(double val)
+{
+    return static_cast<int>(std::round(100 * val));
 }
 
 }

@@ -10,7 +10,7 @@ namespace fuzz {
 int ratio(const string_view &s1, const string_view &s2)
 {
     auto m = string_matcher(s1, s2);
-    return static_cast<int>(std::round(100 * m.ratio()));
+    return utils::percrnd(m.ratio());
 }
 
 int partial_ratio(string_view &s1, string_view &s2)
@@ -53,7 +53,7 @@ int partial_ratio(string_view &s1, string_view &s2)
     }
 
     double max = *std::max_element(scores.cbegin(), scores.cend());
-    return std::round(100 * std::move(max));
+    return utils::percrnd(std::move(max));
 }
 
 int token_sort_ratio(string_view &s1, string_view &s2)
