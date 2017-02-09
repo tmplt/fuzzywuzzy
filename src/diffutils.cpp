@@ -13,7 +13,7 @@ double ratio(const string_view &s1, const string_view &s2)
     size_t lensum = len1 + len2;
     size_t edit_dist = algorithm::levenshtein_distance(s1, s2);
 
-    return (lensum - edit_dist) / static_cast<double>(lensum);
+    return static_cast<double>(lensum - edit_dist) / lensum;
 }
 
 vector<matching_block> matching_blocks(const vector<op_code> ops, const size_t len1,
