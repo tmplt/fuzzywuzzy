@@ -1,14 +1,16 @@
 #include "diffutils.hpp"
 #include "algorithm.hpp"
 #include "structs.hpp"
+#include "common.hpp"
 
 namespace diffutils {
 
 double ratio(const string_view &s1, const string_view &s2)
 {
-    size_t len1 = s1.length(), len2 = s2.length();
-    size_t lensum = len1 + len2;
+    size_t len1 = s1.length(),
+           len2 = s2.length();
 
+    size_t lensum = len1 + len2;
     size_t edit_dist = algorithm::levenshtein_distance(s1, s2);
 
     return (lensum - edit_dist) / static_cast<double>(lensum);
@@ -17,8 +19,8 @@ double ratio(const string_view &s1, const string_view &s2)
 vector<matching_block> matching_blocks(const vector<op_code> ops, const size_t len1,
         __attribute__((unused)) const size_t len2)
 {
-    size_t nmb = 0, /* number of matching blocks. */
-           i;
+    /* number of matching blocks. */
+    size_t nmb = 0;
 
     /* Compute the number of matching blocks. */
     for (auto o = ops.cbegin(); o != ops.cend(); o++) {
@@ -27,7 +29,7 @@ vector<matching_block> matching_blocks(const vector<op_code> ops, const size_t l
 
             /*
              * Adjacent keep blocks -- apparently
-             * never produces, but...
+             * never produced, but...
              */
             while (o->type == keep) o++;
             if (o != ops.cend()) break;
@@ -35,7 +37,7 @@ vector<matching_block> matching_blocks(const vector<op_code> ops, const size_t l
     }
 
     /* Do the convertion. */
-    vector<matching_block> mblocks(nmb + 1);
+    vector<matching_block> mblocks(nmb + 1); // WHY: is the +1 neccesary?
     auto mb = mblocks.begin();
 
     for (auto o = ops.cbegin(); o != ops.cend(); o++) {

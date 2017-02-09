@@ -29,7 +29,7 @@ size_t algorithm::levenshtein_distance(const string_view &s1, const string_view 
 
     for (i = 0; i < len1; i++) {
         /* Edit distance is delete (i+1) chars from non-empty to empty. */
-        rows[0].second = i + 1;
+        rows[0].second = i + 1; // WHY: what does this line do?
 
         /* Fill in the rest of the row. */
         for (j = 0; j < len2; j++) {

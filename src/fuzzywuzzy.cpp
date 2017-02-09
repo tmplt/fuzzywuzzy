@@ -37,21 +37,23 @@ int partial_ratio(string_view &s1, string_view &s2)
      *  block = (1, 3, 3)
      *  best score == ratio("abcd", "Xbcd")
      */
-    vector<int> scores;
+    vector<double> scores;
     for (const auto &block : blocks) {
-        auto long_start  = (block.dpos - block.spos) > 0 ? block.dpos - block.spos : 0;
-        auto long_end    = long_start + shorter.length();
-        auto long_substr = longer.substr(long_start, long_end);
+        size_t long_start = (block.dpos - block.spos) > 0 ? block.dpos - block.spos : 0,
+               long_end   = long_start + shorter.length();
 
+        auto long_substr = longer.substr(long_start, long_end);
         auto m2 = string_matcher(shorter, long_substr);
         int r = m2.ratio();
+
         if (r > 0.995)
             return 100;
         else
             scores.push_back(r);
     }
 
-    return std::round(100 * *std::max_element(scores.cbegin(), scores.cend()));
+    double max = *std::max_element(scores.cbegin(), scores.cend());
+    return std::round(100 * std::move(max));
 }
 
 int token_sort_ratio(string_view &s1, string_view &s2)
