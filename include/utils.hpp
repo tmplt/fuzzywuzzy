@@ -11,11 +11,13 @@ namespace utils {
  * is casted too.
  *
  * Hopefully the compiler will complain if we pass this something stupid.
+ * NOTE: Can this be done when omitting first?
  */
 template <typename T, typename... Args>
-constexpr auto min(const T &first, const Args&... args)
+auto min(const T &first, const Args&... args)
 {
-    static_assert(sizeof...(Args) > 1, "use std::min() instead, since it's only two arguments");
+    /* sizeof is one less than it should be since the first argument isn't counted. */
+    static_assert(sizeof...(Args) >= 2, "use std::min() instead, since it's only two arguments");
 
     std::vector<T> vec = {first, static_cast<T>(args)...};
     auto min = std::min_element(vec.cbegin(), vec.cend());
