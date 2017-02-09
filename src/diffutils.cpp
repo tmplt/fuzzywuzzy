@@ -32,7 +32,7 @@ vector<matching_block> matching_blocks(const vector<op_code> ops, const size_t l
              * never produced, but...
              */
             while (o->type == keep) o++;
-            if (o != ops.cend()) break;
+            if (o == ops.cend()) break;
         }
     }
 
@@ -48,7 +48,7 @@ vector<matching_block> matching_blocks(const vector<op_code> ops, const size_t l
             /* Adjacent keep blocks -- same song here. */
             while (o->type == keep) o++;
 
-            if (o != ops.cend()) {
+            if (o == ops.cend()) {
                 mb->length = len1 - mb->spos;
                 mb++;
                 break;
