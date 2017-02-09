@@ -13,7 +13,7 @@ namespace utils {
  * Hopefully the compiler will complain if we pass this something stupid.
  */
 template <typename T, typename... Args>
-constexpr auto min(T first, Args... args)
+constexpr auto min(const T &first, const Args&... args)
 {
     static_assert(sizeof...(Args) > 1, "use std::min() instead, since it's only two arguments");
 
