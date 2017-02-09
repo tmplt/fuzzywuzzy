@@ -64,8 +64,8 @@ void string_matcher::reset_cache()
 
 vector<op_code> string_matcher::get_opcodes()
 {
-    /* if (op_codes_.empty()) */
-    /*     op_codes_ = diffutils::opcodes(s1_, s2_); */
+    if (op_codes_.empty())
+        op_codes_ = diffutils::opcodes(s1_, s2_);
     return op_codes_;
 }
 

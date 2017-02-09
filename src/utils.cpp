@@ -89,4 +89,9 @@ int percrnd(double val)
     return static_cast<int>(std::round(100 * val));
 }
 
+size_t len_common_prefix(const string_view &s1, const string_view &s2)
+{
+    
+}
+
 }

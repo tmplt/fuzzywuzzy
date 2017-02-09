@@ -13,7 +13,7 @@ int ratio(const string_view &s1, const string_view &s2)
     return utils::percrnd(m.ratio());
 }
 
-int partial_ratio(string_view &s1, string_view &s2)
+int partial_ratio(const string_view &s1, const string_view &s2)
 {
     string_view shorter, longer;
 
