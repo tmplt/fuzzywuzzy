@@ -24,15 +24,15 @@ vector<edit_op> editops(const string_view &s1, const string_view &s2)
            len2o, /* ... and on s2. */
            i;
 
-    auto str1 = s1.cbegin(),
-         str2 = s2.cbegin();
+    auto char1 = s1.cbegin(),
+         char2 = s2.cbegin();
 
     /* Strip common prefix. */
-    while (len1 > 0 && len2 > 0 && *str1 == *str2) {
+    while (len1 > 0 && len2 > 0 && *char1 == *char2) {
         len1--;
         len2--;
-        str1++;
-        str2++;
+        char1++;
+        char2++;
 
         len1o++;
     }
@@ -46,6 +46,7 @@ vector<edit_op> editops(const string_view &s1, const string_view &s2)
         len2--;
     }
 
+    /* Initialize first row and column. */
     auto matrix = vector<size_t>(len1 * len2);
     auto m = matrix.begin();
     for (i = 0; i < len2; i++)
@@ -53,14 +54,113 @@ vector<edit_op> editops(const string_view &s1, const string_view &s2)
     for (i = 1; i < len1; i++)
         matrix[len2 * i] = i;
 
+    char1 = s1.cbegin();
+    char2 = s2.cbegin();
+
     /* Find the costs and fill the matrix. */
     for (i = 1; i < len1; i++) {
         auto prev = m + (i - 1) * len2;
-        auto p = m + i * len2;
-        auto end = p + len2 - 1;
+        auto p    = m + i * len2;
+        auto end  = p + len2 - 1;
 
+        const auto char1 = s1[i - 1];
+        const auto char2p = s2.cbegin();
 
+        size_t x = i;
+        p++;
+        while (p <= end) {
+            size_t c3 = *(prev++) + (char1 != *(char2p++));
+            x++;
+
+            if (x > c3) x = c3;
+            c3 = *prev + 1;
+            if (x > x3) x = c3;
+            *(p++) = x;
+        }
     }
+
+    /* Find the way back. */
+    return editops(s1, len1o, s2, len2o, matrix);
+}
+
+vector<edit_op> editops(const string_view &s1, const size_t o1,
+                        const string_view &s2, const size_t o2, const vector<size_t> &matrix)
+{
+    size_t pos = matrix[len1 * len2 - 1],
+           i = len1 - 1,
+           j = len2 - 1;
+
+    int dir = 0;
+
+    vector<edit_op> ops(matrix.size());
+    auto p = matrix.cbegin() + (len1 * len2) - 1;
+
+    while (i || j) {
+        /* Prefer continuing in the same direction. */
+        if (dir < 0 && j && *p == *(p - 1) + 1) {
+            pos--;
+            ops[pos].type = insert;
+            ops[pos].spos = i + o1;
+            ops[pos].dpos = --j + o2;
+            continue;
+        }
+
+        if (dir > 0 && i && *p == *(p - len2) + 1) {
+            pos--;
+            ops[pos].type = erase;
+            ops[pos].spos = --i + o1;
+            ops[pos].dpos = j + o2;
+            continue;
+        }
+
+        if (i && j && *p == *(p - len2 - 1) && s1[i - 1] == s2[j - 1]) {
+            /* Don't be stupid like difflib, don't store edit_type.keep. */
+            i--;
+            j--;
+            p -= len2 + 1;
+            dir = 0;
+            continue;
+        }
+
+        if (i && j && *p == *(p - len2 - 1) + 1) {
+            pos--;
+            ops[pos].type = replace;
+            ops[pos].spos = --i + o1;
+            ops[pos].dpos = --j + o2;
+            p -= len2 + 1;
+            dir = 0;
+            continue;
+        }
+
+        /*
+         * We can't turn directly from -1 to 1, in this case it would be better
+         * to go diagonally, but check it (dir == 0).
+         */
+        if (dir == 0 && j && *p == *(p - 1) + 1) {
+            pos--;
+            ops[pos].type = insert;
+            ops[pos].spos = i + o1;
+            ops[pos].dpos = --j + o2;
+            p--;
+            dir = -1;
+            continue;
+        }
+
+        if (dir == 0 && i && *p == *(p - len2) + 1) {
+            pos--;
+            ops[pos].type = erase;
+            ops[pos].spos = --i + o1;
+            ops[pos].dpos = j + o2;
+            p -= len2;
+            dir = 1;
+            continue;
+        }
+
+        /* coredump right now, later might be too late. */
+        assert(false && "lost in the cost matrix");
+    }
+
+    return ops;
 }
 
 vector<matching_block> matching_blocks(const vector<op_code> ops, const size_t len1,
