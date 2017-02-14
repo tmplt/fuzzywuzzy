@@ -83,6 +83,11 @@ vector<edit_op> editops(const string_view &s1, const string_view &s2)
     return editops(s1, len1o, s2, len2o, matrix);
 }
 
+/*
+ * This is a verbatim copy of python-Levenshtein's editops_from_cost_matrix,
+ * only altered to use vectors and string-like objects instead of raw c-strings.
+ *
+ */
 vector<edit_op> editops(const string_view &s1, const size_t o1,
                         const string_view &s2, const size_t o2, const vector<size_t> &matrix)
 {
