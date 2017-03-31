@@ -46,4 +46,4 @@ int partial_token_sort_ratio(string_view &s1, string_view &s2);
 /* Returns a measure of the strings' similarity between 0 and 100, using different algorithms. */
 int weighted_ratio(string_view &s1, string_view &s2);
 
-}
+/* I'm not in your mind */ }
