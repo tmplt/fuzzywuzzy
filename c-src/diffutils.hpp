@@ -2,6 +2,7 @@
 #define FUZZYWUZZY_DIFFUTILS_HPP
 
 #include "common.hpp"
+#include "levenshtein.hpp"
 
 using std::vector;
 

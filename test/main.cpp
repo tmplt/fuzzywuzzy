@@ -3,5 +3,5 @@
 
 int main()
 {
-    std::cout << fuzz::ratio("dragon", "cock") << '\n';
+    std::cout << fuzz::ratio("åäö", "å") << '\n';
 }

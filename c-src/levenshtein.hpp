@@ -102,6 +102,6 @@ lev_edit_distance(size_t len1, const lev_byte *string1,
                   size_t len2, const lev_byte *string2,
                   int xcost);
 
-}
+}  // ns logarithm
 
 #endif
