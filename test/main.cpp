@@ -1,7 +1,7 @@
 #include <iostream>
-#include "diffutils.hpp"
+#include "fuzzywuzzy.hpp"
 
 int main()
 {
-    std::cout << diffutils::ratio("dragon", "cock") << '\n';
+    std::cout << fuzz::ratio("dragon", "cock") << '\n';
 }
