@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.hpp"
+#include "levenshtein.hpp"
 
 namespace fuzz {
 
@@ -15,6 +16,8 @@ public:
     void set_string1(const string s1);
     void set_string2(const string s2);
 
+    vector<LevMatchingBlock> get_matching_blocks();
+    vector<LevOpCode> get_opcodes();
 
     double ratio();
     double real_quick_ratio();
@@ -25,6 +28,10 @@ private:
     string s1_, s2_;
     double ratio_ = not_set;
     int distance_ = not_set;
+
+    vector<LevMatchingBlock> matching_blocks_;
+    vector<LevOpCode> op_codes_;
+    vector<LevEditOp> edit_ops_;
 
     void reset_cache();
 };

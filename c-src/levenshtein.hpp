@@ -102,6 +102,22 @@ lev_edit_distance(size_t len1, const lev_byte *string1,
                   size_t len2, const lev_byte *string2,
                   int xcost);
 
+LevEditOp*
+lev_editops_find(size_t len1, const lev_byte *string1,
+                 size_t len2, const lev_byte *string2,
+                 size_t *n);
+
+LevOpCode*
+lev_editops_to_opcodes(size_t n, const LevEditOp *ops, size_t *nb,
+                       size_t len1, size_t len2);
+
+LevMatchingBlock*
+lev_opcodes_matching_blocks(size_t len1,
+                            __attribute__((unused)) size_t len2,
+                            size_t nb,
+                            const LevOpCode *bops,
+                            size_t *nmblocks);
+
 }  // ns logarithm
 
 #endif
