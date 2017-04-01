@@ -1,21 +1,19 @@
+#include <iostream>
 #include "fuzzywuzzy.hpp"
 #include "string_matcher.hpp"
 #include "utils.hpp"
 
-#include <cmath>
-#include <algorithm>
-
 namespace fuzz {
 
-int ratio(const string_view &s1, const string_view &s2)
+int ratio(const string &s1, const string &s2)
 {
     auto m = string_matcher(s1, s2);
     return utils::percrnd(m.ratio());
 }
 
-int partial_ratio(const string_view &s1, const string_view &s2)
+int partial_ratio(const string &s1, const string &s2)
 {
-    string_view shorter, longer;
+    string shorter, longer;
 
     if (s1.length() <= s2.length()) {
         shorter = s1;
@@ -26,7 +24,7 @@ int partial_ratio(const string_view &s1, const string_view &s2)
     }
 
     auto m = string_matcher(shorter, longer);
-    auto blocks = m.get_matching_blocks();
+    vector<LevMatchingBlock> blocks = m.get_matching_blocks();
 
     /*
      * Each block represents a string of matching characters
@@ -39,12 +37,12 @@ int partial_ratio(const string_view &s1, const string_view &s2)
      */
     vector<double> scores;
     for (const auto &block : blocks) {
-        size_t long_start = (block.dpos - block.spos) > 0 ? block.dpos - block.spos : 0,
-               long_end   = long_start + shorter.length();
+        size_t long_start = (block.dpos - block.spos) > 0 ? block.dpos - block.spos : 0;
+        size_t long_end   = long_start + shorter.length();
 
         auto long_substr = longer.substr(long_start, long_end);
         auto m2 = string_matcher(shorter, long_substr);
-        int r = m2.ratio();
+        double r = m2.ratio();
 
         if (r > 0.995)
             return 100;
@@ -52,15 +50,11 @@ int partial_ratio(const string_view &s1, const string_view &s2)
             scores.push_back(r);
     }
 
+    if (scores.empty())
+        return 0;
+
     double max = *std::max_element(scores.cbegin(), scores.cend());
-    return utils::percrnd(std::move(max));
-}
-
-int token_sort_ratio(string_view &s1, string_view &s2)
-{
-    //auto sorted1 = utils::sort(s1);
-
-    return 666;
+    return utils::percrnd(max);
 }
 
 }  // ns fuzz

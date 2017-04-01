@@ -45,7 +45,7 @@ set(CMAKE_MODULE_PATH
 
 include(utils)
 
-add_subdirectory(c-src)
+add_subdirectory(src)
 add_subdirectory(test)
 
 if (FMT_TEST)
