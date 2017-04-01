@@ -58,20 +58,16 @@ vector<LevOpCode> get_opcodes(vector<LevEditOp> &v, string &s1, string &s2)
     return {bops, bops + n};
 }
 
-vector<LevMatchingBlock> get_matching_blocks(vector<LevOpCode> &&v, string &s1, string &s2)
+vector<LevMatchingBlock> get_matching_blocks(vector<LevOpCode> &v, string &s1, string &s2)
 {
     size_t n, nmb, len1, len2;
-    LevEditOp *ops;
-    LevOpCode *bops;
     LevMatchingBlock *mblocks;
 
     n = v.size();
     len1 = s1.length();
     len2 = s2.length();
-    bops = v.data();
 
-    mblocks = logarithm::lev_opcodes_matching_blocks(len1, len2, n, bops, &nmb);
-    free(bops);
+    mblocks = logarithm::lev_opcodes_matching_blocks(len1, len2, n, v.data(), &nmb);
 
     /* LEAK: same here? */;
     return {mblocks, mblocks + nmb};

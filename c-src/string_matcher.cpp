@@ -49,8 +49,10 @@ vector<LevOpCode> string_matcher::get_opcodes()
 
 vector<LevMatchingBlock> string_matcher::get_matching_blocks()
 {
-    if (matching_blocks_.empty())
-        matching_blocks_ = diffutils::get_matching_blocks(get_opcodes(), s1_, s2_);
+    if (matching_blocks_.empty()) {
+        auto ops = get_opcodes();
+        matching_blocks_ = diffutils::get_matching_blocks(ops, s1_, s2_);
+    }
     return matching_blocks_;
 }
 

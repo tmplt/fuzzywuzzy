@@ -24,9 +24,7 @@ int partial_ratio(const string &s1, const string &s2)
     }
 
     auto m = string_matcher(shorter, longer);
-
-    /* FIXME: coredump! */
-    auto blocks = m.get_matching_blocks();
+    vector<LevMatchingBlock> blocks = m.get_matching_blocks();
 
     /*
      * Each block represents a string of matching characters
@@ -51,6 +49,9 @@ int partial_ratio(const string &s1, const string &s2)
         else
             scores.push_back(r);
     }
+
+    if (scores.empty())
+        return 0;
 
     double max = *std::max_element(scores.cbegin(), scores.cend());
     return utils::percrnd(max);
