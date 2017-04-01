@@ -20,3 +20,7 @@ Combination API:
 - [ ] `QRatio()`
 - [ ] `WRatio()`
 - [ ] `UWRatio()`
+
+TODO
+----
+ - Compile the C code with a C-compiler instead?
