@@ -57,4 +57,37 @@ int partial_ratio(const string &s1, const string &s2)
     return utils::percrnd(max);
 }
 
+/* Returns a cleaned string with tokens sorted. */
+static string proccess_and_sort(string s, bool full_process)
+{
+    string ts = (full_process ? utils::full_process(s) : s);
+
+    auto tokens = utils::split_string(s);
+
+    std::sort(tokens.begin(), tokens.end());
+    string sorted = "";
+    for (auto token : tokens)
+        sorted += token + (token != tokens.back() ? " " : "");
+
+    return utils::strip(sorted);
+}
+
+int token_sort_ratio(const string &s1, const string &s2, bool full_proccess = true)
+{
+    /* NOTE: do we need force_ascii? */
+    string sorted1 = proccess_and_sort(s1, full_proccess);
+    string sorted2 = proccess_and_sort(s2, full_proccess);
+
+    return ratio(sorted1, sorted2);
+}
+
+int token_sort_partial_ratio(const string &s1, const string &s2, bool full_proccess = true)
+{
+    /* NOTE: do we need force_ascii? */
+    string sorted1 = proccess_and_sort(s1, full_proccess);
+    string sorted2 = proccess_and_sort(s2, full_proccess);
+
+    return partial_ratio(sorted1, sorted2);
+}
+
 }  // ns fuzz
