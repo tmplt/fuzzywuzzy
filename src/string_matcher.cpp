@@ -37,12 +37,8 @@ void string_matcher::reset_cache()
 
 vector<LevOpCode> string_matcher::get_opcodes()
 {
-    if (op_codes_.empty()) {
-        if (!edit_ops_.empty())
-            op_codes_ = diffutils::get_opcodes(edit_ops_, s1_, s2_);
-        else
-            op_codes_ = diffutils::get_opcodes(s1_, s2_);
-    }
+    if (op_codes_.empty())
+        op_codes_ = diffutils::get_opcodes(s1_, s2_);
 
     return op_codes_;
 }
