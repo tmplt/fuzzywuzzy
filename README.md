@@ -10,3 +10,19 @@ and been wrapped around some C++ code.
 | `diffutils.{c,h}pp` | (Python-interfaced-)C-to-C++ wrapper of `ratio_py`, `get_opcodes_py`, `get_matching_blocks_py`, etc. from python-Levenshtein. |
 | `utils.{c,h}pp` | Utility functions, translated from the Python library's `utils.py`. |
 | `levenshtein.{c,h}` | The underlaying C functions, copied verbatim. |
+
+Usage
+-----
+```cpp
+#include <fuzzywuzzy>
+```
+
+**Simple Ratio**
+```cpp
+fuzz::ratio("this is a test", "this is a test!"); // returns 97
+```
+
+**Partial Ratio**
+```cpp
+fuzz::partial_ratio("this is a test", "this is a test!"); // return 100
+```
