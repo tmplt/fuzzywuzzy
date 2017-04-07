@@ -6,7 +6,7 @@
 
 namespace utils {
 
-int percrnd(double val);
+int percent_round(double val);
 vector<string> split_string(const string &str, const char c = ' ');
 string& trim(string &str);
 

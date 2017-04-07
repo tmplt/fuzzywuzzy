@@ -7,10 +7,9 @@
 namespace utils {
 
 /*
- * percent-rounded: return an int in the range [0,100].
- * TODO: make up a new name.
+ * Return a rounded percentage in the range [0,100].
  */
-int percrnd(double val)
+int percent_round(double val)
 {
     return static_cast<int>(std::round(100 * val));
 }

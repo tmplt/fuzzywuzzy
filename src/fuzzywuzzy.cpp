@@ -8,7 +8,7 @@ namespace fuzz {
 int ratio(const string &s1, const string &s2)
 {
     auto m = string_matcher(s1, s2);
-    return utils::percrnd(m.ratio());
+    return utils::percent_round(m.ratio());
 }
 
 int partial_ratio(const string &s1, const string &s2)
@@ -54,7 +54,7 @@ int partial_ratio(const string &s1, const string &s2)
         return 0;
 
     double max = *std::max_element(scores.cbegin(), scores.cend());
-    return utils::percrnd(max);
+    return utils::percent_round(max);
 }
 
 /* Returns a cleaned string with tokens sorted. */
