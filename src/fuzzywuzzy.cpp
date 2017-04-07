@@ -69,10 +69,10 @@ static string proccess_and_sort(string s, bool full_process)
     for (auto token : tokens)
         sorted += token + (token != tokens.back() ? " " : "");
 
-    return utils::strip(sorted);
+    return utils::trim(sorted);
 }
 
-int token_sort_ratio(const string &s1, const string &s2, bool full_proccess = true)
+int token_sort_ratio(const string &s1, const string &s2, bool full_proccess)
 {
     /* NOTE: do we need force_ascii? */
     string sorted1 = proccess_and_sort(s1, full_proccess);
@@ -81,7 +81,7 @@ int token_sort_ratio(const string &s1, const string &s2, bool full_proccess = tr
     return ratio(sorted1, sorted2);
 }
 
-int token_sort_partial_ratio(const string &s1, const string &s2, bool full_proccess = true)
+int token_sort_partial_ratio(const string &s1, const string &s2, bool full_proccess)
 {
     /* NOTE: do we need force_ascii? */
     string sorted1 = proccess_and_sort(s1, full_proccess);

@@ -3,6 +3,8 @@
 
 int main()
 {
-    std::cout << fuzz::ratio("åäö", "å") << '\n';
-    std::cout << fuzz::partial_ratio("dragon", "cock") << '\n';
+    const string a = "I'm in your mind", b = "I'm in your mind fuzz";
+
+    std::cout << fuzz::ratio(a, b) << '\n';
+    std::cout << fuzz::partial_ratio(a, b) << '\n';
 }
