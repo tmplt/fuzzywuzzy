@@ -25,10 +25,11 @@ vector<string> split_string(const string &str, const char c)
     for (string::const_iterator len = str.begin(); len <= str.end(); len++) {
         string::const_iterator token_start = len;
 
-        while (*len != c && *len)
-            len++;
-
+        while (*len != c && *len) len++;
         tokens.emplace_back(token_start, len);
+
+        /* we don't want strings of just whitespace; count past them. */
+        while (*len == c) len++;
     }
 
     return tokens;
