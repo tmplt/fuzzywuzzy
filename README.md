@@ -26,3 +26,10 @@ fuzz::ratio("this is a test", "this is a test!"); // returns 97
 ```cpp
 fuzz::partial_ratio("this is a test", "this is a test!"); // return 100
 ```
+
+**Token Sort Ratio**
+```cpp
+fuzz::ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear"); // returns 91
+
+fuzz::token_sort_ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear"); // returns 100
+```
