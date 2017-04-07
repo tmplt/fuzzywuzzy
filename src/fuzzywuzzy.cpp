@@ -58,11 +58,11 @@ int partial_ratio(const string &s1, const string &s2)
 }
 
 /* Returns a cleaned string with tokens sorted. */
-static string proccess_and_sort(string s, bool full_process)
+static string proccess_and_sort(const string &s, bool full_process)
 {
-    string ts = (full_process ? utils::full_process(s) : s);
+    string ps = (full_process ? utils::full_process(s) : s);
 
-    auto tokens = utils::split_string(s);
+    auto tokens = utils::split_string(ps);
 
     std::sort(tokens.begin(), tokens.end());
     string sorted = "";

@@ -56,4 +56,27 @@ string& trim(string &str)
     return str;
 }
 
+/*
+ * Process the string by
+ *  - replace non-alphanumeric characters with whitespace,
+ *  - trim whitespace, and
+ *  - forcing to lower case.
+ */
+string full_process(string str)
+{
+    /* Replace non-alphanumeric characters with whitespace, */
+    std::replace_if(str.begin(), str.end(), [](char ch) {
+        /* NOTE: same thing here: specify locale? */
+        return !std::isalnum(ch);
+    }, ' ');
+
+    /* trim whitespace, and */
+    str = utils::trim(str);
+
+    /* force to lower case. */
+    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+
+    return str;
+}
+
 }
