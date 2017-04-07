@@ -26,7 +26,7 @@ int partial_ratio(const string &s1, const string &s2);
  * but sorting the token before comparing.
  */
 int token_sort_ratio(const string &s1, const string &s2, bool full_process = true);
-int token_sort_partial_ratio(string &s1, string &s2, bool full_process = true);
+int token_sort_partial_ratio(const string &s1, const string &s2, bool full_process = true);
 
 /*
  * Splits the strings into tokens and computes intersections and
@@ -40,7 +40,7 @@ int token_set_ratio(string &s1, string &s2);
  * Returns the ratio of the most similar substring as a number
  * between 0 and 100 but sorting the token before comparing.
  */
-int partial_token_sort_ratio(string &s1, string &s2);
+int partial_token_set_ratio(string &s1, string &s2);
 
 
 /* Returns a measure of the strings' similarity between 0 and 100, using different algorithms. */
