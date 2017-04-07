@@ -58,6 +58,19 @@ string& trim(string &str)
 }
 
 /*
+ * Akin to Pythons join: concatenate a vector of strings
+ * with intervening occurrences of sep.
+ */
+string join(const vector<string> &v, const string &sep)
+{
+    string retstr = "";
+    for (const auto &str : v)
+        retstr += str + (str == v.back() ? "" : sep);
+
+    return retstr;
+}
+
+/*
  * Process the string by
  *  - replace non-alphanumeric characters with whitespace,
  *  - trim whitespace, and

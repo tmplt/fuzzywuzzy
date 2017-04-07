@@ -34,13 +34,13 @@ int token_sort_partial_ratio(const string &s1, const string &s2, bool full_proce
  * is then built up and is compared using the simple ratio algorithm.
  * Useful for strings where words appear redundantly.
  */
-int token_set_ratio(string &s1, string &s2);
+int token_set_ratio(const string &s1, const string &s2, bool full_process = true);
 
 /*
  * Returns the ratio of the most similar substring as a number
  * between 0 and 100 but sorting the token before comparing.
  */
-int partial_token_set_ratio(string &s1, string &s2);
+int partial_token_set_ratio(const string &s1, const string &s2, bool full_process = true);
 
 
 /* Returns a measure of the strings' similarity between 0 and 100, using different algorithms. */

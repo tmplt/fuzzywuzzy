@@ -1,4 +1,5 @@
 #include <iostream>
+#include <set>
 #include "fuzzywuzzy.hpp"
 #include "string_matcher.hpp"
 #include "utils.hpp"
@@ -88,6 +89,76 @@ int token_sort_partial_ratio(const string &s1, const string &s2, bool full_procc
     string sorted2 = proccess_and_sort(s2, full_proccess);
 
     return partial_ratio(sorted1, sorted2);
+}
+
+/*
+ * Find all alphanumeric tokens in each string and:
+ *  - treat them as a set,
+ *  - construct two strings of the form <sorted_intersection><sorted_remainder>,
+ *  - take ratios of those two strings, and
+ *  - check for unordered partial matches.
+ */
+static int token_set_ratio(const string &s1, const string &s2, bool partial, bool full_process)
+{
+    string p1 = full_process ? utils::full_process(s1) : s1;
+    string p2 = full_process ? utils::full_process(s2) : s2;
+
+    if (p1.length() == 0 || p2.length() == 0)
+        return 0;
+
+    /* This next part is a wee bit easier on the eyes in Python. */
+
+    auto split1 = utils::split_string(p1), split2 = utils::split_string(p2);
+    auto tokens1 = std::set<string>(split1.cbegin(), split1.cend()),
+         tokens2 = std::set<string>(split2.cbegin(), split2.cend());
+
+    vector<string> intersection, diff1to2, diff2to1;
+
+    /* Find set intersection and set differences. */
+    std::set_intersection(tokens1.cbegin(), tokens1.cend(),
+                          tokens2.cbegin(), tokens2.cend(),
+                          std::back_inserter(intersection));
+
+    std::set_difference(tokens1.cbegin(), tokens1.cend(),
+                        tokens2.cbegin(), tokens2.cend(),
+                        std::back_inserter(diff1to2));
+    std::set_difference(tokens2.cbegin(), tokens2.cend(),
+                        tokens1.cbegin(), tokens1.cend(),
+                        std::back_inserter(diff2to1));
+
+    std::sort(intersection.begin(), intersection.end());
+    std::sort(diff1to2.begin(), diff1to2.end());
+    std::sort(diff2to1.begin(), diff2to1.end());
+
+    auto sorted_sect = utils::join(intersection),
+         sorted_1to2 = utils::join(diff1to2),
+         sorted_2to1 = utils::join(diff2to1);
+
+    auto combined_1to2 = sorted_sect + " " + sorted_1to2,
+         combined_2to1 = sorted_sect + " " + sorted_2to1;
+
+    sorted_sect = utils::trim(sorted_sect);
+    combined_1to2 = utils::trim(combined_1to2);
+    combined_2to1 = utils::trim(combined_2to1);
+
+    auto ratio_func = partial ? partial_ratio : ratio;
+    auto pairwise = vector<int>{
+        ratio_func(sorted_sect, combined_1to2),
+        ratio_func(sorted_sect, combined_2to1),
+        ratio_func(combined_1to2, combined_2to1)
+    };
+
+    return *std::max_element(pairwise.cbegin(), pairwise.cend());
+}
+
+int token_set_ratio(const string &s1, const string &s2, bool full_process)
+{
+    return token_set_ratio(s1, s2, false, full_process);
+}
+
+int partial_token_set_ratio(const string &s1, const string &s2, bool full_process)
+{
+    return token_set_ratio(s1, s2, true, full_process);
 }
 
 }  // ns fuzz
