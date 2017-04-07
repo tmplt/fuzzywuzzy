@@ -19,7 +19,7 @@ int percrnd(double val)
  * Split a string into multiple strings when a character is met.
  * Returns all tokens in an array.
  */
-vector<string> split_string(const string &str, const char c = ' ')
+vector<string> split_string(const string &str, const char c)
 {
     vector<string> tokens;
 
@@ -33,6 +33,28 @@ vector<string> split_string(const string &str, const char c = ' ')
     }
 
     return tokens;
+}
+
+/*
+ * Removes leading and trailing whitespace characters from
+ * the passed string.
+ */
+string& trim(string &str)
+{
+    constexpr auto isspace = [](char ch) {
+        /* NOTE: should we specify the locale? */
+        return !std::isspace(ch);
+    };
+
+    /* Strip leading whitespace.. */
+    auto start = std::find_if(str.cbegin(), str.cend(), isspace);
+    str.erase(str.cbegin(), start);
+
+    /* .. and trailing. */
+    auto end = std::find_if(str.crbegin(), str.crend(), isspace);
+    str.erase(end.base(), str.cend());
+
+    return str;
 }
 
 }

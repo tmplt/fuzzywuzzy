@@ -6,8 +6,8 @@
 
 namespace utils {
 
-
 int percrnd(double val);
 vector<string> split_string(const string &str, const char c = ' ');
+string& trim(string &str);
 
 }
