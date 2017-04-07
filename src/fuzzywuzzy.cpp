@@ -114,7 +114,6 @@ static int token_set_ratio(const string &s1, const string &s2, bool partial, boo
 
     vector<string> intersection, diff1to2, diff2to1;
 
-    /* Find set intersection and set differences. */
     std::set_intersection(tokens1.cbegin(), tokens1.cend(),
                           tokens2.cbegin(), tokens2.cend(),
                           std::back_inserter(intersection));
