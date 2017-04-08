@@ -33,3 +33,10 @@ fuzz::ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear"); // returns 91
 
 fuzz::token_sort_ratio("fuzzy wuzzy was a bear", "wuzzy fuzzy was a bear"); // returns 100
 ```
+
+**Token Set Ratio**
+```cpp
+fuzz::token_sort_ratio("fuzzy was a bear", "fuzzy fuzzy was a bear"); // returns 83 (this should be 84)
+
+fuzz::token_set_ratio("fuzzy was a bear", "fuzzy fuzzy was a bear"); // returns 100
+```
