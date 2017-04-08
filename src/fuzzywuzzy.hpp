@@ -42,8 +42,41 @@ int token_set_ratio(const string &s1, const string &s2, bool full_process = true
  */
 int partial_token_set_ratio(const string &s1, const string &s2, bool full_process = true);
 
+/*                 */
+/* Combination API */
+/*                 */
 
-/* Returns a measure of the strings' similarity between 0 and 100, using different algorithms. */
-int weighted_ratio(string &s1, string &s2);
+/*
+ * Quick ratio comparison between two strings.
+ * Runs utils::full_process on both strings.
+ * Short circuits if either string is empty after processing.
+ */
+int quick_ratio(const string &s1, const string &s2);
+
+/*
+ * Returns a measure of the strings' similarity between 0 and 100, using different algorithms.
+ *
+ * Steps in the order they occur:
+ *  #. Run utils::full_process on both strings
+ *  #. Short circuit if either string is empty
+ *  #. Take the ratio of the two processed strings
+ *  #. Run checks to compare the length of the strings:
+ *    * If one of the strings is more than 1.5 times as long as the other,
+ *      use partial_ratio comparisons -- scale partial results by 0.9
+ *      (this makes sure only full results can return 100)
+ *    * If one of the strings is over 8 times as long as the other,
+ *      scale by 0.6 instead
+ *
+ *  #. Run the other ratio functions
+ *    * If using partial ratio functions, call partial_ratio,
+ *      partial_token_sort_ratio and partial_token_set_ratio.
+ *      Then scale all of these by the ratio based on length.
+ *    * Otherwise call token_sort_ratio and token_set_ratio
+ *      and scale these results by 0.95 (on top of any partial scalars)
+ *
+ *  #. Take the highest value from these results, round it, and return
+ *     as an integer.
+ */
+int weighted_ratio(const string &s1, const string &s2);
 
 /* I'm not in your mind */ }

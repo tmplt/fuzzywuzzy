@@ -1,5 +1,6 @@
 #include <iostream>
 #include <set>
+#include <cmath>
 #include "fuzzywuzzy.hpp"
 #include "string_matcher.hpp"
 #include "utils.hpp"
@@ -153,6 +154,55 @@ int token_set_ratio(const string &s1, const string &s2, bool full_process)
 int partial_token_set_ratio(const string &s1, const string &s2, bool full_process)
 {
     return token_set_ratio(s1, s2, true, full_process);
+}
+
+int quick_ratio(const string &s1, const string &s2)
+{
+    string p1 = utils::full_process(s1);
+    string p2 = utils::full_process(s2);
+
+    if (p1.length() == 0 || p2.length() == 0)
+        return 0;
+
+    return ratio(p1, p2);
+}
+
+int weighted_ratio(const string &s1, const string &s2)
+{
+    string p1 = utils::full_process(s1);
+    string p2 = utils::full_process(p2);
+
+    if (p1.length() == 0 || p2.length() == 0)
+        return 0;
+
+    bool try_partial = true;
+    double unbase_scale = 0.95;
+    double partial_scale = 0.90;
+
+    int base = ratio(p1, p2);
+    double len_ratio = double(utils::max(p1.length(), p2.length())) /
+            utils::min(p1.length(), p2.length());
+
+    /* If strings are similar length, don't use partials. */
+    if (len_ratio < 1.5)
+        try_partial = false;
+
+    /* If one string i much much shorter than the other. */
+    if (len_ratio > 8)
+        partial_scale = 0.60;
+
+    if (try_partial) {
+        double partial = partial_ratio(p1, p2) * partial_scale;
+        double ptsor = token_sort_partial_ratio(p1, p2) * unbase_scale * partial_scale;
+        double ptser = partial_token_set_ratio(p1, p2) * unbase_scale * partial_scale;
+
+        return utils::intr(utils::max(base, partial, ptsor, ptser));
+    } else {
+        double tsor = token_sort_ratio(p1, p2, false) * unbase_scale;
+        double tser = token_set_ratio(p1, p2, false) * unbase_scale;
+
+        return utils::intr(utils::max(base, tsor, tser));
+    }
 }
 
 }  // ns fuzz

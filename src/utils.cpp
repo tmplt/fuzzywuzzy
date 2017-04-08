@@ -11,7 +11,15 @@ namespace utils {
  */
 int percent_round(double val)
 {
-    return static_cast<int>(std::round(100 * val));
+    return intr(100 * val);
+}
+
+/*
+ * Return a correctly rounded integer.
+ */
+int intr(double val)
+{
+    return static_cast<int>(std::round(val));
 }
 
 /*
@@ -94,11 +102,11 @@ string full_process(string str)
 }
 
 /*
- * std::max, but for size_t.
+ * std::min, but for size_t.
  */
-size_t max(size_t a, size_t b)
+size_t min(size_t a, size_t b)
 {
-    return a > b ? a : b;
+    return a < b ? a : b;
 }
 
 }
