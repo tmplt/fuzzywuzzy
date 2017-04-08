@@ -187,7 +187,7 @@ int weighted_ratio(const string &s1, const string &s2)
     if (len_ratio < 1.5)
         try_partial = false;
 
-    /* If one string i much much shorter than the other. */
+    /* If one string is much much shorter than the other. */
     if (len_ratio > 8)
         partial_scale = 0.60;
 
