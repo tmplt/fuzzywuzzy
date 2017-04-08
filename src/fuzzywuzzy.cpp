@@ -64,11 +64,8 @@ static string proccess_and_sort(const string &s, bool full_process)
     string ps = (full_process ? utils::full_process(s) : s);
 
     auto tokens = utils::split_string(ps);
-
     std::sort(tokens.begin(), tokens.end());
-    string sorted = "";
-    for (auto token : tokens)
-        sorted += token + (token != tokens.back() ? " " : "");
+    string sorted = utils::join(tokens);
 
     return utils::trim(sorted);
 }
