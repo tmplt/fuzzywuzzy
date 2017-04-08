@@ -93,4 +93,12 @@ string full_process(string str)
     return str;
 }
 
+/*
+ * std::max, but for size_t.
+ */
+size_t max(size_t a, size_t b)
+{
+    return a > b ? a : b;
+}
+
 }

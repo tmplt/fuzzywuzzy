@@ -32,13 +32,13 @@ int partial_ratio(const string &s1, const string &s2)
      * in a string of the form (idx_1, idx_2, len). The best
      * partial match will block align with at least one
      * of those blocks.
-     *  e.g. shorter = "abcd", longer "XXXbcdeEEE"
-     *  block = (1, 3, 3)
-     *  best score == ratio("abcd", "Xbcd")
+     * e.g. shorter = "abcd", longer "XXXbcdeEEE"
+     * block = (1, 3, 3)
+     * best score == ratio("abcd", "Xbcd")
      */
     vector<double> scores;
     for (const auto &block : blocks) {
-        size_t long_start = (block.dpos - block.spos) > 0 ? block.dpos - block.spos : 0;
+        size_t long_start = utils::max(0, block.dpos - block.spos);
         size_t long_end   = long_start + shorter.length();
 
         auto long_substr = longer.substr(long_start, long_end);
