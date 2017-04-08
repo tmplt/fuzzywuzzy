@@ -106,8 +106,6 @@ static int token_set_ratio(const string &s1, const string &s2, bool partial, boo
     if (p1.length() == 0 || p2.length() == 0)
         return 0;
 
-    /* This next part is a wee bit easier on the eyes in Python. */
-
     auto split1 = utils::split_string(p1), split2 = utils::split_string(p2);
     auto tokens1 = std::set<string>(split1.cbegin(), split1.cend()),
          tokens2 = std::set<string>(split2.cbegin(), split2.cend());
