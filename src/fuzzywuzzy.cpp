@@ -170,7 +170,7 @@ int quick_ratio(const string &s1, const string &s2)
 int weighted_ratio(const string &s1, const string &s2)
 {
     string p1 = utils::full_process(s1);
-    string p2 = utils::full_process(p2);
+    string p2 = utils::full_process(s2);
 
     if (p1.length() == 0 || p2.length() == 0)
         return 0;
