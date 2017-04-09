@@ -39,6 +39,23 @@ vector<LevOpCode> get_opcodes(string &s1, string &s2)
     return {bops, bops + nb};
 }
 
+vector<LevEditOp> get_editops(string &s1, string &s2)
+{
+    size_t len1, len2, nb, n;
+    const lev_byte *lb1, *lb2;
+    LevEditOp *ops;
+
+    len1 = s1.length();
+    len2 = s2.length();
+
+    lb1 = reinterpret_cast<const lev_byte *>(s1.c_str());
+    lb2 = reinterpret_cast<const lev_byte *>(s2.c_str());
+
+    ops = lev_editops_find(len1, lb1, len2, lb2, &n);
+
+    return {ops, ops + n};
+}
+
 vector<LevOpCode> get_opcodes(vector<LevEditOp> &v, string &s1, string &s2)
 {
     size_t len1, len2, n;

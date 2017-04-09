@@ -18,6 +18,7 @@ public:
 
     vector<LevMatchingBlock> get_matching_blocks();
     vector<LevOpCode> get_opcodes();
+    vector<LevEditOp> get_editops();
 
     double ratio();
     double real_quick_ratio();

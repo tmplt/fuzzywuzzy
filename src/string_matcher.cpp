@@ -43,6 +43,13 @@ vector<LevOpCode> string_matcher::get_opcodes()
     return op_codes_;
 }
 
+vector<LevEditOp> string_matcher::get_editops()
+{
+   if (edit_ops_.empty())
+       edit_ops_ = wrapper::get_editops(s1_, s2_);
+    return edit_ops_;
+}
+
 vector<LevMatchingBlock> string_matcher::get_matching_blocks()
 {
     if (matching_blocks_.empty()) {
