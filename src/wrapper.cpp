@@ -41,7 +41,7 @@ vector<LevOpCode> get_opcodes(string &s1, string &s2)
 
 vector<LevEditOp> get_editops(string &s1, string &s2)
 {
-    size_t len1, len2, nb, n;
+    size_t len1, len2, n;
     const lev_byte *lb1, *lb2;
     LevEditOp *ops;
 
