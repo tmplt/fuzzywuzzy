@@ -2,7 +2,7 @@
 
 #include "common.hpp"
 
-#include <algorithm>  // std::min_element()
+#include <algorithm>  // std::max_element()
 
 namespace utils {
 

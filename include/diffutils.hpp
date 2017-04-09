@@ -1,5 +1,4 @@
-#ifndef FUZZYWUZZY_DIFFUTILS_HPP
-#define FUZZYWUZZY_DIFFUTILS_HPP
+#pragma once
 
 #include "common.hpp"
 #include "levenshtein.hpp"
@@ -15,5 +14,3 @@ vector<LevOpCode> get_opcodes(string &s1, string &s2);
 vector<LevOpCode> get_opcodes(vector<LevEditOp> &ops, string &s1, string &s2);
 
 }  // ns diffutils
-
-#endif //FUZZYWUZZY_DIFFUTILS_HPP
