@@ -108,10 +108,7 @@
 #include <stdio.h>
 
 #include <assert.h>
-#include <iostream>
-#include "levenshtein.hpp"
-
-namespace logarithm {
+#include "levenshtein.h"
 
 /**
  * lev_edit_distance:
@@ -677,5 +674,3 @@ lev_opcodes_matching_blocks(size_t len1,
     *nmblocks = nmb;
     return mblocks;
 }
-
-}  // ns logarithm

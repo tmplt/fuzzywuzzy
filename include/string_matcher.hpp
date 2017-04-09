@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.hpp"
-#include "levenshtein.hpp"
+#include "levenshtein.h"
 
 namespace fuzz {
 

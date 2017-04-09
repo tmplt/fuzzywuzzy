@@ -95,8 +95,6 @@ typedef struct {
     size_t len;
 } LevMatchingBlock;
 
-namespace logarithm {
-
 size_t
 lev_edit_distance(size_t len1, const lev_byte *string1,
                   size_t len2, const lev_byte *string2,
@@ -117,7 +115,5 @@ lev_opcodes_matching_blocks(size_t len1,
                             size_t nb,
                             const LevOpCode *bops,
                             size_t *nmblocks);
-
-}  // ns logarithm
 
 #endif

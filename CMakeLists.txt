@@ -29,7 +29,7 @@ endif()
 
 option(FUZZ_TEST "Generate the test target." ${MASTER_PROJECT})
 
-project(fuzzywuzzy LANGUAGES CXX)
+project(fuzzywuzzy LANGUAGES C CXX)
 
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
@@ -42,8 +42,6 @@ endif()
 set(CMAKE_MODULE_PATH
   ${CMAKE_MODULE_PATH}
   ${PROJECT_SOURCE_DIR}/cmake)
-
-include(utils)
 
 add_subdirectory(src)
 add_subdirectory(test)

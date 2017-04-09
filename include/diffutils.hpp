@@ -1,7 +1,10 @@
 #pragma once
 
 #include "common.hpp"
-#include "levenshtein.hpp"
+
+extern "C" {
+#include "levenshtein.h"
+}
 
 using std::vector;
 
