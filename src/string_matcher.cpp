@@ -1,5 +1,5 @@
 #include "string_matcher.hpp"
-#include "diffutils.hpp"
+#include "wrapper.hpp"
 
 #include <algorithm>
 #include <iostream>
@@ -38,7 +38,7 @@ void string_matcher::reset_cache()
 vector<LevOpCode> string_matcher::get_opcodes()
 {
     if (op_codes_.empty())
-        op_codes_ = diffutils::get_opcodes(s1_, s2_);
+        op_codes_ = wrapper::get_opcodes(s1_, s2_);
 
     return op_codes_;
 }
@@ -47,7 +47,7 @@ vector<LevMatchingBlock> string_matcher::get_matching_blocks()
 {
     if (matching_blocks_.empty()) {
         auto ops = get_opcodes();
-        matching_blocks_ = diffutils::get_matching_blocks(ops, s1_, s2_);
+        matching_blocks_ = wrapper::get_matching_blocks(ops, s1_, s2_);
     }
     return matching_blocks_;
 }
@@ -55,7 +55,7 @@ vector<LevMatchingBlock> string_matcher::get_matching_blocks()
 double string_matcher::ratio()
 {
     if (ratio_ == not_set)
-        ratio_ = diffutils::ratio(s1_, s2_);
+        ratio_ = wrapper::ratio(s1_, s2_);
     return ratio_;
 }
 

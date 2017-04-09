@@ -8,7 +8,7 @@ extern "C" {
 
 using std::vector;
 
-namespace diffutils {
+namespace wrapper {
 
 double ratio(const string &str1, const string &str2);
 

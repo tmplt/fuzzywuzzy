@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "diffutils.hpp"
+#include "wrapper.hpp"
 
-namespace diffutils {
+namespace wrapper {
 
 double ratio(const string &str1, const string &str2)
 {
@@ -72,4 +72,4 @@ vector<LevMatchingBlock> get_matching_blocks(vector<LevOpCode> &v, string &s1, s
     return {mblocks, mblocks + nmb};
 }
 
-}  // ns diffutils
+}  // ns wrapper
