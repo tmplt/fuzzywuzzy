@@ -4,14 +4,22 @@
 
 #include <algorithm>  // std::max_element()
 
+namespace fuzz {
+
 namespace utils {
 
 int percent_round(double val);
+
 int intr(double val);
+
 vector<string> split_string(const string &str, const char c = ' ');
+
 string& trim(string &str);
+
 string join(const vector<string> &v, const string &sep = " ");
+
 string full_process(string str);
+
 size_t min(size_t a, size_t b);
 
 /*
@@ -31,5 +39,6 @@ auto max(const T &first, const Args&... args)
     return *max;
 }
 
+}  // utils utils
 
-}
+}  // utils fuzz

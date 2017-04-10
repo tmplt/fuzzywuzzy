@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+namespace fuzz {
+
 namespace utils {
 
 /*
@@ -107,4 +109,6 @@ size_t min(size_t a, size_t b)
     return a < b ? a : b;
 }
 
-}
+}  // ns utils
+
+}  // ns fuzz
