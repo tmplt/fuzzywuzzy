@@ -29,15 +29,18 @@ int intr(double val)
 vector<string> split_string(const string &str, const char c)
 {
     vector<string> tokens;
+    string word;
+    for (const auto &len : str) {
+        if (len == c && word.size()) {
+            tokens.push_back(word);
+            word.clear();
+        } else if (len != c) {
+            word += len;
+        }
+    }
 
-    for (string::const_iterator len = str.begin(); len <= str.end(); len++) {
-        string::const_iterator token_start = len;
-
-        while (*len != c && *len) len++;
-        tokens.emplace_back(token_start, len);
-
-        /* we don't want strings of just whitespace; count past them. */
-        while (*len == c) len++;
+    if(word.size()) {
+        tokens.push_back(word);
     }
 
     return tokens;

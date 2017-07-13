@@ -54,5 +54,5 @@ auto max(const T &first, const Args&... args)
 #endif
 
 }  // utils utils
-
+  
 }  // utils fuzz
