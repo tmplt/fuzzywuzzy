@@ -22,6 +22,18 @@ string full_process(string str);
 
 size_t min(size_t a, size_t b);
 
+#ifdef CPP17
+
+template <typename First, typename ... T>
+decltype(auto) max(const First &f, const T & ... t)
+{
+    const First *retval = &f;
+    ( (retval = &std::max(*retval, t)), ... );
+    return *retval;
+}
+
+#else
+
 /*
  * An "extension" of std::max() so that more than two arguments
  * can be passed. The first argument decides what everything else
@@ -39,6 +51,8 @@ auto max(const T &first, const Args&... args)
     return *max;
 }
 
-}  // utils utils
+#endif
 
+}  // utils utils
+  
 }  // utils fuzz
