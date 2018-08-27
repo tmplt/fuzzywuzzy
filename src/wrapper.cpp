@@ -15,7 +15,7 @@ double ratio(const string &str1, const string &str2)
     size_t lensum = len1 + len2;
     size_t edit_dist = lev_edit_distance(len1, lb1, len2, lb2, 1);
 
-    return static_cast<double>(lensum - edit_dist) / lensum;
+    return static_cast<double>(lensum - edit_dist) / static_cast<double>(lensum);
 }
 
 vector<LevOpCode> get_opcodes(string &s1, string &s2)

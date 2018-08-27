@@ -69,7 +69,7 @@ double string_matcher::ratio()
 double string_matcher::real_quick_ratio()
 {
     size_t len1 = s1_.length(), len2 = s2_.length();
-    return 2.0 * std::min(len1, len2) / (len1 + len2);
+    return 2.0 * static_cast<double>(std::min(len1, len2)) / static_cast<double>((len1 + len2));
 }
 
 }  // ns fuzz

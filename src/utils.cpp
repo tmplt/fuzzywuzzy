@@ -9,7 +9,7 @@ namespace utils {
 /*
  * Return a rounded percentage in the range [0,100].
  */
-int percent_round(double val)
+unsigned int percent_round(double val)
 {
     return intr(100 * val);
 }
@@ -17,9 +17,9 @@ int percent_round(double val)
 /*
  * Return a correctly rounded integer.
  */
-int intr(double val)
+unsigned int intr(double val)
 {
-    return static_cast<int>(std::round(val));
+    return static_cast<unsigned int>(std::round(val));
 }
 
 /*

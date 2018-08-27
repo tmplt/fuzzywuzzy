@@ -8,13 +8,13 @@
 
 namespace fuzz {
 
-int ratio(const string &s1, const string &s2)
+unsigned int ratio(const string &s1, const string &s2)
 {
     auto m = string_matcher(s1, s2);
     return utils::percent_round(m.ratio());
 }
 
-int partial_ratio(const string &s1, const string &s2)
+unsigned int partial_ratio(const string &s1, const string &s2)
 {
     string shorter, longer;
 
@@ -40,7 +40,7 @@ int partial_ratio(const string &s1, const string &s2)
      */
     vector<double> scores;
     for (const auto &block : blocks) {
-        size_t long_start = utils::max(0, block.dpos - block.spos);
+        size_t long_start = utils::max(0u, block.dpos - block.spos);
         size_t long_end   = long_start + shorter.length();
 
         auto long_substr = longer.substr(long_start, long_end);
@@ -72,7 +72,7 @@ static string proccess_and_sort(const string &s, bool full_process)
     return utils::trim(sorted);
 }
 
-int token_sort_ratio(const string &s1, const string &s2, bool full_proccess)
+unsigned int token_sort_ratio(const string &s1, const string &s2, bool full_proccess)
 {
     /* NOTE: do we need force_ascii? */
     string sorted1 = proccess_and_sort(s1, full_proccess);
@@ -81,7 +81,7 @@ int token_sort_ratio(const string &s1, const string &s2, bool full_proccess)
     return ratio(sorted1, sorted2);
 }
 
-int token_sort_partial_ratio(const string &s1, const string &s2, bool full_proccess)
+unsigned int token_sort_partial_ratio(const string &s1, const string &s2, bool full_proccess)
 {
     /* NOTE: do we need force_ascii? */
     string sorted1 = proccess_and_sort(s1, full_proccess);
@@ -97,7 +97,7 @@ int token_sort_partial_ratio(const string &s1, const string &s2, bool full_procc
  *  - take ratios of those two strings, and
  *  - check for unordered partial matches.
  */
-static int token_set_ratio(const string &s1, const string &s2, bool partial, bool full_process)
+static unsigned int token_set_ratio(const string &s1, const string &s2, bool partial, bool full_process)
 {
     string p1 = full_process ? utils::full_process(s1) : s1;
     string p2 = full_process ? utils::full_process(s2) : s2;
@@ -138,7 +138,7 @@ static int token_set_ratio(const string &s1, const string &s2, bool partial, boo
     combined_2to1 = utils::trim(combined_2to1);
 
     auto ratio_func = partial ? partial_ratio : ratio;
-    auto pairwise = vector<int>{
+    auto pairwise = vector<unsigned int>{
         ratio_func(sorted_sect, combined_1to2),
         ratio_func(sorted_sect, combined_2to1),
         ratio_func(combined_1to2, combined_2to1)
@@ -147,17 +147,17 @@ static int token_set_ratio(const string &s1, const string &s2, bool partial, boo
     return *std::max_element(pairwise.cbegin(), pairwise.cend());
 }
 
-int token_set_ratio(const string &s1, const string &s2, bool full_process)
+unsigned int token_set_ratio(const string &s1, const string &s2, bool full_process)
 {
     return token_set_ratio(s1, s2, false, full_process);
 }
 
-int partial_token_set_ratio(const string &s1, const string &s2, bool full_process)
+unsigned int partial_token_set_ratio(const string &s1, const string &s2, bool full_process)
 {
     return token_set_ratio(s1, s2, true, full_process);
 }
 
-int quick_ratio(const string &s1, const string &s2)
+unsigned int quick_ratio(const string &s1, const string &s2)
 {
     string p1 = utils::full_process(s1);
     string p2 = utils::full_process(s2);
@@ -168,7 +168,7 @@ int quick_ratio(const string &s1, const string &s2)
     return ratio(p1, p2);
 }
 
-int weighted_ratio(const string &s1, const string &s2)
+unsigned int weighted_ratio(const string &s1, const string &s2)
 {
     string p1 = utils::full_process(s1);
     string p2 = utils::full_process(s2);
@@ -180,9 +180,9 @@ int weighted_ratio(const string &s1, const string &s2)
     double unbase_scale = 0.95;
     double partial_scale = 0.90;
 
-    int base = ratio(p1, p2);
-    double len_ratio = double(utils::max(p1.length(), p2.length())) /
-            utils::min(p1.length(), p2.length());
+    auto base = ratio(p1, p2);
+    double len_ratio = static_cast<double>(utils::max(p1.length(), p2.length())) /
+            static_cast<double>(utils::min(p1.length(), p2.length()));
 
     /* If strings are similar length, don't use partials. */
     if (len_ratio < 1.5)

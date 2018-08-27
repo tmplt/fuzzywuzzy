@@ -8,9 +8,9 @@ namespace fuzz {
 
 namespace utils {
 
-int percent_round(double val);
+unsigned int percent_round(double val);
 
-int intr(double val);
+unsigned int intr(double val);
 
 vector<string> split_string(const string &str, const char c = ' ');
 
