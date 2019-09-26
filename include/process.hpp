@@ -40,5 +40,18 @@ vector<pair<string, int>> extract(const string& query, const vector<string>& cho
 vector<pair<string, int>> extractOne(const string& query, const vector<string>& choices
     , function<string(string)> processor=utils::full_process, function<int(string, string, bool)> scorer=weighted_ratio
     , int score_cutoff = 0);
+/*
+ * This convenience function takes a list of strings containing duplicates and uses fuzzy matching to identify
+ * and remove duplicates. Specifically, it uses the process.extract to identify duplicates that
+ * score greater than a user defined threshold. Then, it looks for the longest item in the duplicate list
+ * since we assume this item contains the most entity information and returns that. It breaks string
+ * length ties on an alphabetical sort.
+ * 
+ * Note: as the threshold DECREASES the number of duplicates that are found INCREASES. This means that the
+ *     returned deduplicated list will likely be shorter. Raise the threshold for fuzzy_dedupe to be less
+ *     sensitive. 
+ */
+vector<string> dedupe(const vector<string>& contains_dupes, int threshold=70
+    , function<int(string, string, bool)> scorer=token_set_ratio);
 
 } // ns fuzz
