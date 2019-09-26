@@ -8,22 +8,28 @@
 
 namespace fuzz {
 
-unsigned int ratio(const string &s1, const string &s2)
+unsigned int ratio(const string &s1, const string &s2, bool full_process)
 {
-    auto m = string_matcher(s1, s2);
+    string p1 = full_process ? utils::full_process(s1) : s1;
+    string p2 = full_process ? utils::full_process(s2) : s2;
+
+    auto m = string_matcher(p1, p2);
     return utils::percent_round(m.ratio());
 }
 
-unsigned int partial_ratio(const string &s1, const string &s2)
+unsigned int partial_ratio(const string &s1, const string &s2, bool full_process)
 {
+    string p1 = full_process ? utils::full_process(s1) : s1;
+    string p2 = full_process ? utils::full_process(s2) : s2;
+
     string shorter, longer;
 
-    if (s1.length() <= s2.length()) {
-        shorter = s1;
-        longer  = s2;
+    if (p1.length() <= p2.length()) {
+        shorter = p1;
+        longer  = p2;
     } else {
-        shorter = s2;
-        longer  = s1;
+        shorter = p2;
+        longer  = p1;
     }
 
     auto m = string_matcher(shorter, longer);
@@ -139,9 +145,9 @@ static unsigned int token_set_ratio(const string &s1, const string &s2, bool par
 
     auto ratio_func = partial ? partial_ratio : ratio;
     auto pairwise = vector<unsigned int>{
-        ratio_func(sorted_sect, combined_1to2),
-        ratio_func(sorted_sect, combined_2to1),
-        ratio_func(combined_1to2, combined_2to1)
+        ratio_func(sorted_sect, combined_1to2, full_process),
+        ratio_func(sorted_sect, combined_2to1, full_process),
+        ratio_func(combined_1to2, combined_2to1, full_process)
     };
 
     return *std::max_element(pairwise.cbegin(), pairwise.cend());
@@ -157,10 +163,10 @@ unsigned int partial_token_set_ratio(const string &s1, const string &s2, bool fu
     return token_set_ratio(s1, s2, true, full_process);
 }
 
-unsigned int quick_ratio(const string &s1, const string &s2)
+unsigned int quick_ratio(const string &s1, const string &s2, bool full_process)
 {
-    string p1 = utils::full_process(s1);
-    string p2 = utils::full_process(s2);
+    string p1 = full_process ? utils::full_process(s1) : s1;
+    string p2 = full_process ? utils::full_process(s2) : s2;
 
     if (p1.length() == 0 || p2.length() == 0)
         return 0;
@@ -168,10 +174,10 @@ unsigned int quick_ratio(const string &s1, const string &s2)
     return ratio(p1, p2);
 }
 
-unsigned int weighted_ratio(const string &s1, const string &s2)
+unsigned int weighted_ratio(const string &s1, const string &s2, bool full_process)
 {
-    string p1 = utils::full_process(s1);
-    string p2 = utils::full_process(s2);
+    string p1 = full_process ? utils::full_process(s1) : s1;
+    string p2 = full_process ? utils::full_process(s2) : s2;
 
     if (p1.length() == 0 || p2.length() == 0)
         return 0;

@@ -9,13 +9,13 @@ namespace /* I'm in your mind... */ fuzz {
 /*                          */
 
 /* Calculates a Levenshtein simple ratio between the string. */
-unsigned int ratio(const string &s1, const string &s2);
+unsigned int ratio(const string &s1, const string &s2, bool full_process = true);
 
 /*
  * Return the ratio of the most similar substring
  * as a number between 0 and 100.
  */
-unsigned int partial_ratio(const string &s1, const string &s2);
+unsigned int partial_ratio(const string &s1, const string &s2, bool full_process = true);
 
 /*                             */
 /* Advanced scoring functions. */
@@ -51,7 +51,7 @@ unsigned int partial_token_set_ratio(const string &s1, const string &s2, bool fu
  * Runs utils::full_process on both strings.
  * Short circuits if either string is empty after processing.
  */
-unsigned int quick_ratio(const string &s1, const string &s2);
+unsigned int quick_ratio(const string &s1, const string &s2, bool full_process = true);
 
 /*
  * Returns a measure of the strings' similarity between 0 and 100, using different algorithms.
@@ -77,6 +77,6 @@ unsigned int quick_ratio(const string &s1, const string &s2);
  *  #. Take the highest value from these results, round it, and return
  *     as an integer.
  */
-unsigned int weighted_ratio(const string &s1, const string &s2);
+unsigned int weighted_ratio(const string &s1, const string &s2, bool full_process = true);
 
 /* I'm not in your mind */ }
