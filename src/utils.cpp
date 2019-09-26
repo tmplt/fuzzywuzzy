@@ -52,7 +52,7 @@ vector<string> split_string(const string &str, const char c)
  */
 string& trim(string &str)
 {
-    constexpr auto isspace = [](char ch) {
+    auto isspace = [](char ch) {
         /* NOTE: should we specify the locale? */
         return !std::isspace(ch);
     };
