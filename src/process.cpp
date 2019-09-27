@@ -11,7 +11,6 @@ vector<pair<string, int>> extractWithoutOrder(const string& query, const vector<
     , function<string(string)> processor, function<int(string, string, bool)> scorer
     , int score_cutoff)
 {
-    // auto no_process = [](string x) { return x; };
     string processed_query = processor(query);
 
     /* TODO: Avoid running full_process twice. */
@@ -27,7 +26,7 @@ vector<pair<string, int>> extractWithoutOrder(const string& query, const vector<
         string processed = pre_processor(processor(choice));
         int score = score_func(processed_query, processed);
         if(score >= score_cutoff)
-            results.push_back(pair<string, int>{choice, score});
+            results.emplace_back(choice, score);
     }
 
     return results;
@@ -37,11 +36,11 @@ vector<pair<string, int>> extractBests(const string& query, const vector<string>
     , function<string(string)> processor, function<int(string, string, bool)> scorer
     , int score_cutoff, intmax_t limit)
 {
-    auto sl = extractWithoutOrder(query, choices, processor, scorer);
+    auto sl = extractWithoutOrder(query, choices, processor, scorer, score_cutoff);
     if(limit == -1)
         return sl;
 
-    std::partial_sort(sl.begin(), sl.begin()+limit, sl.end(), [](auto a, auto b){ return a.second > b.second; });
+    std::partial_sort(sl.begin(), sl.begin()+limit, sl.end(), [](const auto& a, const auto& b){ return a.second > b.second; });
     return vector<pair<string, int>>(sl.begin(), sl.begin()+limit);
 }
 
@@ -81,10 +80,10 @@ vector<string> dedupe(const vector<string>& contains_dupes, int threshold, funct
             extractor.push_back(*filtered.begin());
         else {
             /* alpha sort */
-            std::stable_sort(filtered.begin(), filtered.end(), [](auto a, auto b){ return a[0] > b[0]; });
+            std::stable_sort(filtered.begin(), filtered.end(), [](const auto& a, const auto& b){ return a[0] > b[0]; });
 
             /* length sort */
-            std::stable_sort(filtered.begin(), filtered.end(), [](auto a, auto b){ return a.size() > b.size(); });
+            std::stable_sort(filtered.begin(), filtered.end(), [](const auto& a, const auto& b){ return a.size() > b.size(); });
 
             /* take first item as our 'canonical example' */
             extractor.push_back(*filtered.begin());
@@ -104,4 +103,5 @@ vector<string> dedupe(const vector<string>& contains_dupes, int threshold, funct
         return vector<string>(keys.begin(), keys.end());  
 }
 
-}  // ns huzz
+}  // ns fuzz
+

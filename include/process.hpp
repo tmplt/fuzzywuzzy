@@ -12,8 +12,8 @@ namespace fuzz
 using std::pair;
 using std::function;
 /*
- * Finds the best matches in a vector of choses. Returns a vector of pairs where
- * containing the match and the score.
+ * Finds the best matches in a vector of choises. Returns a vector of pairs which
+ * contains the matches and their respective scores.
  */
 vector<pair<string, int>> extractWithoutOrder(const string& query, const vector<string>& choices
     , function<string(string)> processor=utils::full_process, function<int(string, string, bool)> scorer=weighted_ratio
@@ -55,3 +55,4 @@ vector<string> dedupe(const vector<string>& contains_dupes, int threshold=70
     , function<int(string, string, bool)> scorer=token_set_ratio);
 
 } // ns fuzz
+
