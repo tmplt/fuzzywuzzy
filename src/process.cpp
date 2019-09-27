@@ -78,13 +78,13 @@ vector<string> dedupe(const vector<string>& contains_dupes, int threshold, funct
 
         /* if there is only 1 item in *filtered*, no duplicates were found so append to *extracted* */
         if(filtered.size() == 1)
-            extractor.push_back(str);
+            extractor.push_back(*filtered.begin());
         else {
             /* alpha sort */
-            std::sort(filtered.begin(), filtered.end(), [](auto a, auto b){ return a[0] > b[0]; });
+            std::stable_sort(filtered.begin(), filtered.end(), [](auto a, auto b){ return a[0] > b[0]; });
 
             /* length sort */
-            std::sort(filtered.begin(), filtered.end(), [](auto a, auto b){ return a.size() > b.size(); });
+            std::stable_sort(filtered.begin(), filtered.end(), [](auto a, auto b){ return a.size() > b.size(); });
 
             /* take first item as our 'canonical example' */
             extractor.push_back(*filtered.begin());
