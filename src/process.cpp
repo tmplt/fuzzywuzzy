@@ -41,7 +41,14 @@ vector<pair<string, int>> extractBests(const string& query, const vector<string>
         return sl;
 
     std::partial_sort(sl.begin(), sl.begin()+limit, sl.end(), [](const auto& a, const auto& b){ return a.second > b.second; });
-    return vector<pair<string, int>>(sl.begin(), sl.begin()+limit);
+
+    /* If limit < 0, it means to return everything. Since vector::size() is always */
+    /* larger than -1, we can combine the check. */
+    if(sl.size() > limit) {
+        sl.resize((size_t)limit);
+        sl.shrink_to_fit();
+    }
+    return sl;
 }
 
 vector<pair<string, int>> extract(const string& query, const vector<string>& choices
