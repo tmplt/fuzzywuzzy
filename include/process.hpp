@@ -35,7 +35,6 @@ vector<pair<string, int>> extract(const string& query, const vector<string>& cho
 
 /*
  * This is a convenience method which returns the single best choice.
- *  See extractWithoutOrder() for the full arguments list.
  */
 vector<pair<string, int>> extractOne(const string& query, const vector<string>& choices
     , function<string(string)> processor=utils::full_process, function<int(string, string, bool)> scorer=weighted_ratio
