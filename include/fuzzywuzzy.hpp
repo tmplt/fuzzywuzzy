@@ -9,13 +9,13 @@ namespace /* I'm in your mind... */ fuzz {
 /*                          */
 
 /* Calculates a Levenshtein simple ratio between the string. */
-unsigned int ratio(const string &s1, const string &s2, bool full_process = true);
+unsigned int ratio(const string &s1, const string &s2, const bool full_process = true);
 
 /*
  * Return the ratio of the most similar substring
  * as a number between 0 and 100.
  */
-unsigned int partial_ratio(const string &s1, const string &s2, bool full_process = true);
+unsigned int partial_ratio(const string &s1, const string &s2, const bool full_process = true);
 
 /*                             */
 /* Advanced scoring functions. */
@@ -25,8 +25,8 @@ unsigned int partial_ratio(const string &s1, const string &s2, bool full_process
  * Returns a measure of the strings' similarity between 0 and 100
  * but sorting the token before comparing.
  */
-unsigned int token_sort_ratio(const string &s1, const string &s2, bool full_process = true);
-unsigned int token_sort_partial_ratio(const string &s1, const string &s2, bool full_process = true);
+unsigned int token_sort_ratio(const string &s1, const string &s2, const bool full_process = true);
+unsigned int token_sort_partial_ratio(const string &s1, const string &s2, const bool full_process = true);
 
 /*
  * Splits the strings into tokens and computes intersections and
@@ -34,13 +34,13 @@ unsigned int token_sort_partial_ratio(const string &s1, const string &s2, bool f
  * is then built up and is compared using the simple ratio algorithm.
  * Useful for strings where words appear redundantly.
  */
-unsigned int token_set_ratio(const string &s1, const string &s2, bool full_process = true);
+unsigned int token_set_ratio(const string &s1, const string &s2, const bool full_process = true);
 
 /*
  * Returns the ratio of the most similar substring as a number
  * between 0 and 100 but sorting the token before comparing.
  */
-unsigned int partial_token_set_ratio(const string &s1, const string &s2, bool full_process = true);
+unsigned int partial_token_set_ratio(const string &s1, const string &s2, const bool full_process = true);
 
 /*                 */
 /* Combination API */
@@ -51,7 +51,7 @@ unsigned int partial_token_set_ratio(const string &s1, const string &s2, bool fu
  * Runs utils::full_process on both strings.
  * Short circuits if either string is empty after processing.
  */
-unsigned int quick_ratio(const string &s1, const string &s2, bool full_process = true);
+unsigned int quick_ratio(const string &s1, const string &s2, const bool full_process = true);
 
 /*
  * Returns a measure of the strings' similarity between 0 and 100, using different algorithms.
@@ -77,6 +77,6 @@ unsigned int quick_ratio(const string &s1, const string &s2, bool full_process =
  *  #. Take the highest value from these results, round it, and return
  *     as an integer.
  */
-unsigned int weighted_ratio(const string &s1, const string &s2, bool full_process = true);
+unsigned int weighted_ratio(const string &s1, const string &s2, const bool full_process = true);
 
 /* I'm not in your mind */ }

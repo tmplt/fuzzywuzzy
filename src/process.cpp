@@ -8,7 +8,7 @@ namespace fuzz
 using std::set;
 
 vector<pair<string, int>> extractWithoutOrder(const string& query, const vector<string>& choices
-    , function<string(string)> processor, function<int(string, string, bool)> scorer
+    , function<string(string)> processor, function<int(string, string, const bool)> scorer
     , int score_cutoff)
 {
     string processed_query = processor(query);
@@ -33,7 +33,7 @@ vector<pair<string, int>> extractWithoutOrder(const string& query, const vector<
 }
 
 vector<pair<string, int>> extractBests(const string& query, const vector<string>& choices
-    , function<string(string)> processor, function<int(string, string, bool)> scorer
+    , function<string(string)> processor, function<int(string, string, const bool)> scorer
     , int score_cutoff, intmax_t limit)
 {
     auto sl = extractWithoutOrder(query, choices, processor, scorer, score_cutoff);
@@ -45,20 +45,20 @@ vector<pair<string, int>> extractBests(const string& query, const vector<string>
 }
 
 vector<pair<string, int>> extract(const string& query, const vector<string>& choices
-    , function<string(string)> processor, function<int(string, string, bool)> scorer
+    , function<string(string)> processor, function<int(string, string, const bool)> scorer
     , intmax_t limit)
 {
     return extractBests(query, choices, processor, scorer, 0, limit);
 }
 
 vector<pair<string, int>> extractOne(const string& query, const vector<string>& choices
-    , function<string(string)> processor, function<int(string, string, bool)> scorer
+    , function<string(string)> processor, function<int(string, string, const bool)> scorer
     , int score_cutoff)
 {
     return extractBests(query, choices, processor, scorer, score_cutoff, 1);
 }
 
-vector<string> dedupe(const vector<string>& contains_dupes, int threshold, function<int(string, string, bool)> scorer)
+vector<string> dedupe(const vector<string>& contains_dupes, int threshold, function<int(string, string, const bool)> scorer)
 {
     /* NOTE: This function is a translation of the python and it can be optimized a lot. The original algorithm is */
     /* far from ideal. */
