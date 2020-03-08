@@ -13,6 +13,12 @@ unsigned int ratio(const string &s1, const string &s2, const bool full_process)
     string p1 = full_process ? utils::full_process(s1) : s1;
     string p2 = full_process ? utils::full_process(s2) : s2;
 
+    // handle empty string cases
+    if (p1.empty() && p2.empty())
+        return 100;
+    else if (p1.empty() || p2.empty())
+        return 0;
+
     auto m = string_matcher(p1, p2);
     return utils::percent_round(m.ratio());
 }
@@ -21,6 +27,12 @@ unsigned int partial_ratio(const string &s1, const string &s2, const bool full_p
 {
     string p1 = full_process ? utils::full_process(s1) : s1;
     string p2 = full_process ? utils::full_process(s2) : s2;
+
+    // handle empty string cases
+    if (p1.empty() && p2.empty())
+        return 100;
+    else if (p1.empty() || p2.empty())
+        return 0;
 
     string shorter, longer;
 
