@@ -49,7 +49,9 @@ set(CMAKE_MODULE_PATH
 add_subdirectory(src)
 add_subdirectory(test)
 
-if (FMT_TEST)
-  enable_testing()
-  #add_subdirectory(test)
-endif()
+#if (FMT_TEST)
+enable_testing()
+add_test(main_test ${CMAKE_BINARY_DIR}/bin/main)
+#add_subdirectory(test)
+#endif()
+

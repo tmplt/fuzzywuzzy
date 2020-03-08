@@ -11,6 +11,25 @@ and been wrapped around some C++ code.
 | `utils.{c,h}pp` | Utility functions, translated from the Python library's `utils.py`. |
 | `levenshtein.{c,h}` | The underlaying C functions, copied verbatim. |
 
+Build
+-----
+
+Build this project.
+
+```bash
+mkdir -p build
+cd build
+cmake ..
+make -j8 # Multi-threaded compilation
+```
+
+Run tests of this project.
+
+```bash
+cd build
+make test
+```
+
 Usage
 -----
 ```cpp
