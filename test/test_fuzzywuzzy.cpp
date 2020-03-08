@@ -18,6 +18,7 @@
  * (v) RatioTest
  * ( ) ValidatorTest         C++ does not have decorator as in Python
  * (v) ProcessTest
+ * ( ) TestCodeFormat        Not applicable
  */
 
 /**
@@ -125,6 +126,7 @@ TEST_CASE("RatioTest")
 
     SECTION("testPartialRatio")
     {
+        REQUIRE( 100 == fuzz::partial_ratio(s1, s1) );
         REQUIRE( 100 == fuzz::partial_ratio(s1, s3) );
     }
 
@@ -418,6 +420,9 @@ TEST_CASE("ProcessTest")
         auto part_result = fuzz::extractOne(basic_string, match_strings,
                                             fuzz::utils::full_process,
                                             fuzz::partial_ratio);
+
+        REQUIRE( fuzz::ratio(basic_string, basic_string) == 100 );
+        REQUIRE( fuzz::partial_ratio(basic_string, basic_string) == 100 );
 
         REQUIRE( result[0] == std::pair<std::string, int>{"a, b", 100} );
         REQUIRE( part_result[0] == std::pair<std::string, int>{"a, b", 100} );
