@@ -14,16 +14,16 @@ and been wrapped around some C++ code.
 Build
 -----
 
-Build this project.
+Build this project and the unit test
 
 ```bash
 mkdir -p build
 cd build
 cmake ..
-make -j8 # Multi-threaded compilation
+make -j$(nproc) # Multi-threaded compilation
 ```
 
-Run tests of this project.
+Run the unit test of this library
 
 ```bash
 cd build
