@@ -4,7 +4,7 @@ When done, this library will have the same interface and behavior.
 The underlaying C-library ([python-Levenshtein](https://github.com/miohtama/python-Levenshtein), mirrored [here](https://github.com/Tmplt/python-Levenshtein)) has been stripped of its Python interfacing
 and been wrapped around some C++ code.
 
-| files in `src/` | Python/C-lib equivalent |
+| files | Python/C-lib equivalent |
 | ----- | ----------------------- |
 | `fuzzywuzzy.{c,h}pp` and `string_matcher.{c,h}pp` | Line-by-line Python-to-C++ translations of the Python library and python-Levenshtein's `StringMatcher.py`. |
 | `wrapper.{c,h}pp` | (Python-interfaced-)C-to-C++ wrapper of `ratio_py`, `get_opcodes_py`, `get_matching_blocks_py`, etc. from python-Levenshtein. |
@@ -13,6 +13,16 @@ and been wrapped around some C++ code.
 
 Usage
 -----
+- Add subdirectory in your CMakeLists.txt:
+```cmake
+add_subdirectory(fuzzywuzzy)
+```
+- Link to your target:
+```cmake
+target_link_libraries(${PROJECT_NAME} fuzzywuzzy)
+```
+- Use from code:
+
 ```cpp
 #include <fuzzywuzzy>
 ```

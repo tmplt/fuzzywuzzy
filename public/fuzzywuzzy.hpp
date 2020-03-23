@@ -1,8 +1,9 @@
 #pragma once
 
-#include "common.hpp"
+#include <string>
 
 namespace /* I'm in your mind... */ fuzz {
+using std::string;
 
 /*                          */
 /* Basic scoring functions. */
