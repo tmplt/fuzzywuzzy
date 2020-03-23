@@ -37,14 +37,14 @@ vector<pair<string, int>> extractBests(const string& query, const vector<string>
     , int score_cutoff, intmax_t limit)
 {
     auto sl = extractWithoutOrder(query, choices, processor, scorer, score_cutoff);
-    if(limit == -1)
+    if(limit <= -1)
         return sl;
 
     std::partial_sort(sl.begin(), sl.begin()+limit, sl.end(), [](const auto& a, const auto& b){ return a.second > b.second; });
 
     /* If limit < 0, it means to return everything. Since vector::size() is always */
     /* larger than -1, we can combine the check. */
-    if(sl.size() > limit) {
+    if(sl.size() > static_cast<unsigned>(limit)) {
         sl.resize((size_t)limit);
         sl.shrink_to_fit();
     }
