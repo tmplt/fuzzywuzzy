@@ -11,6 +11,30 @@ and been wrapped around some C++ code.
 | `utils.{c,h}pp` | Utility functions, translated from the Python library's `utils.py`. |
 | `levenshtein.{c,h}` | The underlaying C functions, copied verbatim. |
 
+Build
+-----
+
+Build this project and the unit test
+
+```
+mkdir -p build
+cd build
+cmake ..
+make -j$(nproc)
+```
+
+Test
+-----
+
+The unit test of C++ fuzzywuzzy is based on the [Catch2](https://github.com/catchorg/Catch2) framework. Install Catch2 into system path or place the single-header version into the include path as `catch2/catch.hpp`
+
+To run the unit test:
+
+```
+cd build
+./bin/main
+```
+
 Usage
 -----
 ```cpp

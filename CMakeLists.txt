@@ -33,6 +33,9 @@ project(fuzzywuzzy LANGUAGES C CXX)
 
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 if (CMAKE_COMPILER_IS_GNUCXX OR (CMAKE_CXX_COMPILER_ID MATCHES "Clang"))
@@ -46,7 +49,9 @@ set(CMAKE_MODULE_PATH
 add_subdirectory(src)
 add_subdirectory(test)
 
-if (FMT_TEST)
-  enable_testing()
-  #add_subdirectory(test)
-endif()
+#if (FMT_TEST)
+enable_testing()
+add_test(main_test ${CMAKE_BINARY_DIR}/bin/main)
+#add_subdirectory(test)
+#endif()
+
