@@ -16,18 +16,23 @@ Build
 
 Build this project and the unit test
 
-```bash
+```
 mkdir -p build
 cd build
 cmake ..
-make -j$(nproc) # Multi-threaded compilation
+make -j$(nproc)
 ```
 
-Run the unit test of this library
+Test
+-----
 
-```bash
+The unit test of C++ fuzzywuzzy is based on the [Catch2](https://github.com/catchorg/Catch2) framework. Install Catch2 into system path or place the single-header version into the include path as `catch2/catch.hpp`
+
+To run the unit test:
+
+```
 cd build
-make test
+./bin/main
 ```
 
 Usage

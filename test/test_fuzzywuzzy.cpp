@@ -2,7 +2,7 @@
 #include "fuzzywuzzy.hpp"
 #include "process.hpp"
 
-#include "catch.hpp"
+#include "catch2/catch.hpp"
 
 /**
  * Port suitable tests from the original Python repository:
@@ -135,6 +135,8 @@ TEST_CASE("RatioTest")
         REQUIRE( 100 == fuzz::token_sort_ratio(s1, s1a) );
     }
 
+    // The test was commented out for the function `void partial_token_sort_ratio()`
+    // has not been implemented in C++ fuzzywuzzy library yet.
     /*
     SECTION("testPartialTokenSortRatio")
     {
@@ -282,6 +284,9 @@ TEST_CASE("ProcessTest")
         REQUIRE( best[0].first == baseball_strings[0] );
     }
 
+    // The C++ implementation does not accept this argument yet. This requires
+    // generic function to accept universal type such as template function.
+    // Python can do it because its type system is loose.
     /*
     SECTION("testWithProcessor")
     {
@@ -310,6 +315,9 @@ TEST_CASE("ProcessTest")
             "new york yankees vs boston red sox"
         };
 
+        // The C++ implementation does not accept this argument yet. This requires
+        // generic function to accept universal type such as template function.
+        // Python can do it because its type system is loose.
         /*
         const std::unordered_map<int, std::string> choices_dict = {
             {1, "new york mets vs chicago cubs"},

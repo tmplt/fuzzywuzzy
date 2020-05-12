@@ -1,5 +1,6 @@
 #include "fuzzywuzzy.hpp"
-#include "catch.hpp"
+
+#include "catch2/catch.hpp"
 
 /**
  * Test the examples described in Readme
