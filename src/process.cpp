@@ -85,8 +85,7 @@ vector<string> dedupe(const vector<string>& contains_dupes, int threshold, funct
         /* if there is only 1 item in *filtered*, no duplicates were found so append to *extracted* */
         if(filtered.size() == 1)
             extractor.push_back(*filtered.begin());
-        else if(filtered.size() == 0); //nop
-        else {
+        else if(filtered.size() != 0) {
             /* alpha sort */
             std::stable_sort(filtered.begin(), filtered.end(), [](const auto& a, const auto& b){ return a[0] > b[0]; });
 
