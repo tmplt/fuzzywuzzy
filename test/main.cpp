@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "fuzzywuzzy.hpp"
+#include "process.hpp"
 
 int main()
 {
@@ -10,4 +11,7 @@ int main()
     std::cout << fuzz::ratio(a, b) << '\n';
     std::cout << fuzz::partial_ratio(a, b) << '\n';
     std::cout << fuzz::token_sort_ratio(c, d) << '\n';
+
+    std::vector<string> v = {"fuzzy", "wuzzy", "wuzzy", "fuzzy", "fuzzy", " "};
+    auto erg = fuzz::dedupe(v);
 }
