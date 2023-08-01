@@ -47,7 +47,7 @@ unsigned int partial_ratio(const string &s1, const string &s2, const bool full_p
     vector<double> scores;
     for (const auto &block : blocks) {
         size_t long_start = utils::max(0, block.dpos - block.spos);
-        size_t long_end   = long_start + shorter.length();
+        size_t long_end = shorter.length();
 
         auto long_substr = longer.substr(long_start, long_end);
         auto m2 = string_matcher(shorter, long_substr);
